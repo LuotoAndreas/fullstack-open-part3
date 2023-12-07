@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('dist'))
 
-morgan.token('reqBody', (req, res) => {
+morgan.token('reqBody', (req) => {
   return JSON.stringify(req.body)
 })
 
@@ -30,13 +30,13 @@ app.get('/api/persons/:id', (request, response, next) => {
   })
     .catch((error) => next(error))
 })
-  
+
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then(() => {
       response.status(204).end()
     })
-    .catch((error) => next(error))    
+    .catch((error) => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -52,7 +52,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     })
     .catch(error => next(error))
 })
- 
+
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
